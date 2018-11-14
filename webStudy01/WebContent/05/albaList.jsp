@@ -26,7 +26,7 @@
 				//simple클래스에서 전역으로 선언해준 맵 가져오기
 				//맵의 값들을 for문으로 하나하나 찍어주기
 				//주석달기 
-				//주석
+				//주석?????
 				Map<String,AlbasengVO> alba = (Map<String,AlbasengVO>)getServletContext().getAttribute("albasengs");
 				for(Entry<String, AlbasengVO> entry:alba.entrySet()){
 					%>
