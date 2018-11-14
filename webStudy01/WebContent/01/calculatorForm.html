@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$(function(){
+		var resultArea = $("#result");
+		$("#calForm").on("submit", function(event){
+			event.preventDefault();
+			var url = $(this).attr("action");
+			var method = $(this).attr("method");
+			var data = $(this).serialize();
+// 			alert(data);
+			$.ajax({//문자기반의 비동기처리하는 함수
+				url : url, //requst line
+				method : method,//requst line
+				data : data, //requset body
+				dataType : "json", /* 응답데이터의 mime request header에서 accept 결정
+				//html(text/html), json(application/json), text(text,plain), xml(application/xml) 공통점은 모두 문자열 */
+				success : function(resp) {
+					resultArea.html(resp.result);
+				},
+				error : function(resp) {
+					alert(resp.responseTxt);
+				}
+			});
+			return false;
+		});
+	});
+</script>
+</head>
+<body>
+	<!-- 사칙 연산을 위해 좌항피연산자, 연산자, 우항피연산자 입력 --><!-- action="http://localhost/webStudy01/calculate" -->
+	<form id="calForm" action="/webStudy01/calculate" method="post"> <!-- 현재위치는 알 수 없다 -->
+	좌항피연산자<input type="number" name="leftOp"/>
+	연산자 
+	<input type="radio" name="operator" value="add"/>+
+	<input type="radio" name="operator" value="minus"/>-
+	<input type="radio" name="operator" value="multiply"/>*
+	<input type="radio" name="operator" value="divide"/>/
+	우항피연산자<input type="number" name="rightOp" />
+	<input type="submit" value="=" />
+	</form>
+	
+	<div id="result">
+	
+	</div>
+</body>
+</html>
+
+
+
+

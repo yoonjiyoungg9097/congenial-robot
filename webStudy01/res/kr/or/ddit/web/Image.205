@@ -1,0 +1,12 @@
+<html>
+	<head>
+	</head>
+	<body>
+	<form action="imageService" method="get">
+		
+			@Image
+			
+		
+	</form>
+	</body>
+</html>
