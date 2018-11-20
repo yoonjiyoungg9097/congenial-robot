@@ -9,12 +9,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	Map<String, String> gradeMap = (Map<String, String>)application.getAttribute("gradeMap");
-	Map<String, String> licenseMap = (Map<String, String>)application.getAttribute("licenseMap");
-	AlbasengVO albaVO = (AlbasengVO)request.getAttribute("albaVO");
-	Map<String,String>errors =  (Map<String,String>)request.getAttribute("errors");
-	if(albaVO==null) albaVO = new AlbasengVO();
-	if(errors==null) errors = new LinkedHashMap<>();
+// 	Map<String, String> gradeMap = (Map<String, String>)application.getAttribute("gradeMap");
+// 	Map<String, String> licenseMap = (Map<String, String>)application.getAttribute("licenseMap");
+// 	AlbasengVO albaVO = (AlbasengVO)request.getAttribute("albaVO");
+// 	Map<String,String>errors =  (Map<String,String>)request.getAttribute("errors");
+// 	if(albaVO==null) albaVO = new AlbasengVO();
+// 	if(errors==null) errors = new LinkedHashMap<>();
 	
 // 	String name = request.getParameter("name");
 // 	String age = request.getParameter("age");
@@ -25,13 +25,17 @@
 // 	String career = request.getParameter("career");
 // 	String[] license = request.getParameterValues("license");
 %>
+<jsp:useBean id="gradeMap" class="java.util.HashMap" scope="application"></jsp:useBean>
+<<jsp:useBean id="licenseMap" class="java.util.LinkedHashMap" scope="application"></jsp:useBean>
+<jsp:useBean id="albaVO" class="kr.or.ddit.vo.AlbasengVO" scope="request"></jsp:useBean>
+<jsp:useBean id="errors" class="java.util.LinkedHashMap" scope="request"></jsp:useBean>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	.error{
+	.error{/* span에 class로 error를 지정해주고 거기에 style을 준다 */
 		color: red;
 	}
 </style>
@@ -64,7 +68,7 @@
 		<th>전번</th>
 		<td>
 			<input type="text" name="tel" placeholder="000-0000-0000"
-				pattern="\d{3}-\d{3,4}-\d{4}" required="required"/>
+				pattern="\d{3}-\d{3,4}-\d{4}" value="<%=Objects.toString(albaVO.getTel(),"") %>" required="required"/>
 			<span class="error">
 				<%=Objects.toString(errors.get("tel"),"") %>
 			</span>
@@ -74,7 +78,7 @@
 	<tr>
 		<th>주소</th>
 		<td>
-			<input type="text" name="address" required="required"/>
+			<input type="text" name="address"  value="<%=Objects.toString(albaVO.getAddress(),"") %>" required="required"/>
 			<span class="error">
 				<%=Objects.toString(errors.get("address"),"") %>
 			</span>
@@ -98,7 +102,9 @@
 				<option value="">학력</option>
 				<%
 					String pattern = "<option value='%s' %s> %s </option>";
-							for(Entry<String,String> entry : gradeMap.entrySet()){
+// 							for(Entry<String,String> entry : gradeMap.entrySet()){
+							for(Object obj : gradeMap.entrySet()){
+								Entry entry = (Entry)obj;
 								String selected = "";
 								if(entry.getKey().equals(albaVO.getGrade())){//내가 이전에 입력했었던 학력?
 									selected = "selected";
@@ -126,7 +132,8 @@
 					if(albaVO.getLicense()!=null){
 						Arrays.sort(albaVO.getLicense());
 					}
-					for(Entry<String,String> entry : licenseMap.entrySet()){
+					for(Object obj : licenseMap.entrySet()){
+						Entry entry = (Entry)obj;
 						String selected = "";
 						if(albaVO.getLicense()!=null &&  Arrays.binarySearch(albaVO.getLicense(), entry.getKey())>-1){//찾았을때
 							selected = "selected";

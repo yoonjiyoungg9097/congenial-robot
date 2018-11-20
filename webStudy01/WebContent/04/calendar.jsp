@@ -4,11 +4,6 @@
 <%@page import="static java.util.Calendar.*"%><!-- 이걸 설정해주면 calendar.year하지 않고 그냥 YEAR해도 된다 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>04/calendar.jsp</title>
 <style>
 	.sunday{
 		/* 일요일의 칸은 빨간색으로 변경 */
@@ -30,7 +25,7 @@
 </style>
 <script type="text/javascript">/*  이전달, 다음달으 클릭했을때, form태그안에 입력했을때 모두 따로 처리하지 않고 eventHandler로 하나로 처리해준다*/
 	function eventHandler(year, month) { //이전달이나 다음달을 클릭했을때 받아오는 값을 파라미터로
-		var form = document.forms[0];
+		var form = document.calForm;
 		if((year && month)  || month==0 ){//자바는 year가 boolean타입이어야하지만 자바스크립트는 정해져있지 않다 반드시 값이 넘어올때만 true가 된다
 			//자바에서 1월은 0으로 되어있는데 month==0이라는 조건이 없으면 year&&month에서 month가 false이기 때문에 if문에 들어오지 않는다
 			//그래서 month==0이라는 조건을 추가해주게 되면 ture이기 때문에 조건문을 타게 되어서 1월에서 한번 더 이전달로 넘어갔을 때 전년도 달로 넘어갈 수 있게 된다
@@ -41,8 +36,6 @@
 		return false;
 	}
 </script>
-</head>
-<body>
 <%
 	request.setCharacterEncoding("UTF-8"); //아래 파라미터에 특수문자가 있을경우 이와같은 코드를 통해 셋팅해준다
 	String yearStr = request.getParameter("year");
@@ -87,7 +80,7 @@
 	//현재 시스템에서 제공하는 모든 locale정보 제공
 	Locale[] locales = Locale.getAvailableLocales();
 %>
-<form><!-- get방식 -->
+<form name="calForm" method="post"><!-- get방식 ->post방식-->
 <h4>
 <%-- <a href="<%=request.getContextPath() %>/04/calendar.jsp?year=<%=beforYear %>&month=<%=beforMonth%>&language=<%=clinetLocale%>">이전달</a> --%>
 <a href="javascript:eventHandler(<%=beforYear%>, <%=beforMonth%>);">이전달</a>
@@ -115,9 +108,10 @@
 		}
 	%>
 </select>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!-- 공백을 의미한다 &nbsp; -->
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!-- 공백을 의미한다 &nbsp; 이전달이라는 글자와 form자체사이의 띄어쓰기를 의미한다-->
 <a onclick="eventHandler(<%=nextYear%>, <%=nextMonth%>);">다음달</a>
 </h4>
+<input type="hidden" value="calendar" name="command"/>
 </form>
 <table>
 <thead>
@@ -163,5 +157,3 @@
 %>
 </tbody>
 </table>
-</body>
-</html>

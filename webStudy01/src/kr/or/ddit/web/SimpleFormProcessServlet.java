@@ -24,6 +24,16 @@ import javax.servlet.annotation.*;
 
 
 @WebServlet(value="/albamon", loadOnStartup=1)
+//loadOnStartup : tomcat 실행시 무조건 실행(서블릿 실행시가 아니라)
+//숫자가 0보다 크면 서버가 시작될 때 무조건 해당 서블릿을 초기화
+//(숫자가 0에 가까울 수록 먼저 초기화, 숫자 중복시 먼저 작성된 서블릿부터 초기화)
+//숫자가 음수일 경우 톰캣 호출시 서블릿이 호출되지 않고 그냥 보통의 서블릿으로 적용됨
+//web.xml에서 설정 가능
+
+
+//impleFormProcessServlet 클래스는 HttpServlet 클래스를 상속 받고 있으며,
+//따라서 impleFormProcessServlet은 서블릿으로 동작할 수 있게 된다.
+//서블릿은 자바를 이용하여 웹페이지를 동적으로 생성하는 서버측 프로그램
 public class SimpleFormProcessServlet extends HttpServlet {
 //   public static Map<String, String> gradeMap;
 //   public static Map<String, String> licenseMap;

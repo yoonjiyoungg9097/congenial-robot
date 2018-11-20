@@ -12,15 +12,7 @@
 // 		return name.endsWith("txt");});
 		return application.getMimeType(name).startsWith("text");});
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>02/musicForm.jsp</title>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+
 <script type="text/javascript">
 	$(function(){
 		var songForm = $("#songForm"); //왜 제일 위쪽에 해주는지?
@@ -47,10 +39,8 @@
 		});
 	});
 </script>
-</head>
-<body>
 <!-- action="/song"은 절대경로 -->
-	<form id="songForm" action="<%=request.getContextPath() %>/song" method="post">
+	<form id="songForm" action="<%=request.getContextPath() %>/song" method="post"> 
 		<select name="music">
 			<option value="">가사 선택</option>
 			<%
@@ -61,8 +51,7 @@
 				}
 			%>
 		</select>
+		<input type="hidden" value="lyricsProcess" name="command">
 	</form>
 	
 	<div id="resultArea"></div>
-</body>
-</html>
