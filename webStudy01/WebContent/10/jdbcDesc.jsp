@@ -26,11 +26,11 @@
 		4. 쿼리 객체 생성 :내가 사용할 
 			Statement  동적- 쿼리문을 미리 지정해주지 않음 ex) select * from member where 조건1,... 조건  n (사용자가 조건을 더 줄수있음 )
 			PreparedStatement 정적-쿼리문에 들어갈 조건 등의 개수를 미리 정해주고 사용 ex) select * from member where mem_id=? and mem_pass =? (사용자가 임의로 추가 불가능)
-			CallableStatement 
+			CallableStatement - 함수, 프로시져(절차적)
 		5. 쿼리 실행(CRUD)
 			ResultSet executeQuery : Select 
 			int(실행에 영향을 받은 레코드수) executeUpdate : insert/update/delete (int몇개의 레코드가 인서트/업데이트/딜리트가 됬는지)     
-		6. 결과 집합 사용  ResultSet - 
+		6. 결과 집합 사용  ResultSet - 커서형태릐 데이터
 		7. 자원의 해제 : finally 블럭/ try~with~resource 구문   ex)conn.close rs.close
 		<%--
 			try(	
